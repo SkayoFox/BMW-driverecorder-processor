@@ -9,7 +9,7 @@ This app works as a dashcam replacement, but the exported files are not very use
 In order to make the recordings more useful, this tool provides a few features to process these recordings.
 This tool is basically a user friendly interface for [ffmpeg](https://ffmpeg.org/) with a additional subtitle generator.
 It works by creating a subtitles.ass file from the Metadata.json file and writing a ffmpeg command containing all complex filters needed.
-
+![Screenshot](driverecorder_processor_screenshot.png "Screenshot")
 
 ### Features:
 * Converts drive recorder .ts files into any video-format supported by ffmpeg
@@ -40,3 +40,4 @@ It works by creating a subtitles.ass file from the Metadata.json file and writin
 * As I only have a iDrive 8.5 BMW i4 from 2023, I don't know if Metadata-files are identical in iDrive 9, iDrive 7 and so on.
 * On small screens, the window is too large
 * Subtitles are generated for every camera when the video is split
+* Video Resolution is fixed. Has to be fixed.

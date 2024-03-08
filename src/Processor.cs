@@ -182,7 +182,7 @@ namespace DriveRecorderConverter
                     complexFilters = ";[0]" + param.InterpolationAlgo + "[interpolated]";
                     videoName = "interpolated";
                 }
-                complexFilters = "[" + videoName + "]" + subtitlesFilter + "[subs]";
+                complexFilters = "[" + videoName + "]" + subtitlesFilter + ".ass[subs]";
                 videoName = "subs";
             }
 

@@ -371,13 +371,39 @@ namespace DriveRecorderConverter
 
                 string frameBaseStr = "Dialogue: 0," + timeFromStr + "," + timeToStr + ",Default,,0,0,0,,";
 
-                double speed_ms = entry.velocity_kmh / 3.6;
-                double accel = (speed_ms - lastFrameSpeed) / frameTime;
+                double speed_u = 0.0;
+                double velocity = 0.0;
+
+                if (entry.velocity != null)
+                {
+                    velocity = entry.velocity.Value;
+                }
+                else
+                {
+                    if (param.MphMode)
+                    {
+                        velocity = Double.Parse(entry.velocity_mph ?? "0.0", CultureInfo.InvariantCulture);
+                    }
+                    else
+                    {
+                        velocity = entry.velocity_kmh ?? 0.0;
+                    }
+                }
+
+                if (param.MphMode)
+                {
+                    speed_u = velocity * 1.4666667;
+                }
+                else
+                {
+                    speed_u = velocity / 3.6;
+                }
+                double accel = (speed_u - lastFrameSpeed) / frameTime;
                 if (lastFrameSpeed == 0.0)
                 {
                     accel = 0.0;
                 }
-                lastFrameSpeed = speed_ms;
+                lastFrameSpeed = speed_u;
 
                 string frameSubs = "";
                 if (param.ShowDateTime)
@@ -393,13 +419,12 @@ namespace DriveRecorderConverter
                     {
                         string speedStr = "";
                         if (param.MphMode)
-                        {
-                            double mph = Double.Parse(entry.velocity_mph, CultureInfo.InvariantCulture);
-                            speedStr = mph.ToString("0.00") + " mph";
+                        {;
+                            speedStr = velocity.ToString("0.00") + " mph";
                         }
                         else
                         {
-                            speedStr = entry.velocity_kmh.ToString("0.00") + " km/h";
+                            speedStr = velocity.ToString("0.00") + " km/h";
                         }
                         frameSubs += speedStr + (param.ShowAccel ? "\\N" : "");
                     }
